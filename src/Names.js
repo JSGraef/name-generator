@@ -15,6 +15,7 @@ export const names = {
         "Rusty",
         "Jerome",
         "Pierre",
+        "Jörg",
         "Harrison",
         "Mr.",
         "Mrs.",

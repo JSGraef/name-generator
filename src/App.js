@@ -66,11 +66,13 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Name Generator</h1>
         </header>
-        <h1 className="name">
-          {`${name.first} ${name.last} ${name.suffix || ""}`}
-        </h1>
-        <p><button className="newNameButton" onClick={() => this.newName(false)}>New Name</button>
-          <button className="newNameButton" onClick={() => this.newName(true)}>New Cat Name</button></p>
+        <div className="mainName">
+          <h1 className="name">
+            {`${name.first} ${name.last} ${name.suffix || ""}`}
+          </h1>
+          <p><button className="newNameButton" onClick={() => this.newName(false)}>New Name</button>
+            <button className="newNameButton" onClick={() => this.newName(true)}>New Cat Name</button></p>
+        </div>
         <hr />
         <div>
           <h3>Last 10 Rejected Names:</h3>
