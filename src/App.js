@@ -5,7 +5,7 @@ import { names } from './Names';
 class App extends Component {
   constructor() {
     super();
-    this.state = { name: this.createNewName() }
+    this.state = { name: this.createNewName(), rejected: [] }
   }
 
   getFirstName = (seed) => {
@@ -52,6 +52,13 @@ class App extends Component {
     }
   }
 
+  newName = (cat = false) => {
+    let { rejected } = this.state
+    rejected.unshift(this.state.name)
+    rejected = rejected.slice(0, 10)
+    this.setState({ name: this.createNewName(cat), rejected })
+  }
+
   render() {
     const { name } = this.state
     return (
@@ -62,8 +69,16 @@ class App extends Component {
         <h1 className="name">
           {`${name.first} ${name.last} ${name.suffix || ""}`}
         </h1>
-        <p><button className="newNameButton" onClick={() => this.setState({ name: this.createNewName() })}>New Name</button>
-          <button className="newNameButton" onClick={() => this.setState({ name: this.createNewName(true) })}>New Cat Name</button></p>
+        <p><button className="newNameButton" onClick={() => this.newName(false)}>New Name</button>
+          <button className="newNameButton" onClick={() => this.newName(true)}>New Cat Name</button></p>
+        <hr />
+        <div>
+          <h3>Last 10 Rejected Names:</h3>
+          {this.state.rejected.map(rn => {
+            const n = `${rn.first} ${rn.last} ${rn.suffix || ""}`
+            return <p key={n}>{n}</p>
+          })}
+        </div>
       </div>
     );
   }
