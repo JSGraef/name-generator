@@ -28,6 +28,18 @@ class App extends Component {
     ]
   }
 
+  getFirstNameCat = (seed) => {
+    return names.dogFirsts[
+      Math.floor((Math.random() * seed) % names.dogFirsts.length)
+    ]
+  }
+
+  getLastNameCat = (seed) => {
+    return names.dogLasts[
+      Math.floor((Math.random() * seed) % names.dogLasts.length)
+    ]
+  }
+
   getSuffix = (seed) => {
     if (Math.floor((Math.random() * seed) % 12) === 0) {
       return names.suffixes[Math.floor((Math.random() * seed) % names.suffixes.length)]
@@ -35,21 +47,27 @@ class App extends Component {
     return null
   }
 
-  createNewName = (cat = false) => {
+  createNewName = (which) => {
     var time = new Date().getTime()
-    if (cat) {
-      return {
+    switch (which) {
+      case "cat": return {
         first: this.getFirstNameCat(time),
         last: this.getLastNameCat(time),
         suffix: this.getSuffix(time)
       }
-    } else {
-      return {
+      case "dog": return {
+        first: this.getFirstNameCat(time),
+        last: this.getLastNameCat(time),
+        suffix: this.getSuffix(time)
+      }
+      case "human":
+      default: return {
         first: this.getFirstName(time),
         last: this.getLastName(time),
         suffix: this.getSuffix(time)
       }
     }
+
   }
 
   newName = (cat = false) => {
@@ -70,8 +88,9 @@ class App extends Component {
           <h1 className="name">
             {`${name.first} ${name.last} ${name.suffix || ""}`}
           </h1>
-          <p><button className="newNameButton" onClick={() => this.newName(false)}>New Name</button>
-            <button className="newNameButton" onClick={() => this.newName(true)}>New Cat Name</button></p>
+          <p><button className="newNameButton" onClick={() => this.newName("human")}>New Name</button>
+            <button className="newNameButton" onClick={() => this.newName("cat")}>New Cat Name</button>
+            <button className="newNameButton" onClick={() => this.newName("dog")}>New Dog Name</button></p>
         </div>
         <hr />
         <div className="rejectedNames">
