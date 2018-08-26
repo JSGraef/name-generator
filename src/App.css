@@ -29,7 +29,8 @@ hr {
 
 .name {
   font-family: 'Permanent Marker', cursive;
-  font-size: 3em;
+  font-size: 3.5em;
+  padding-bottom: 42px;
 }
 
 .newNameButton {
@@ -39,7 +40,11 @@ hr {
 }
 
 .mainName {
-  padding: 50px;
+  padding: 50px 0 16px 0;
+}
+
+.rejectedNames {
+  padding-top: 16px;
 }
 
 button {

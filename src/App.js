@@ -74,8 +74,8 @@ class App extends Component {
             <button className="newNameButton" onClick={() => this.newName(true)}>New Cat Name</button></p>
         </div>
         <hr />
-        <div>
-          <h3>Last 10 Rejected Names:</h3>
+        <div className="rejectedNames">
+          <h3>{this.state.rejected.length > 0 ? "Last 10 Rejected Names:" : ""}</h3>
           {this.state.rejected.map(rn => {
             const n = `${rn.first} ${rn.last} ${rn.suffix || ""}`
             return <p key={n}>{n}</p>
