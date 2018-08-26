@@ -298,6 +298,7 @@ export const names = {
         "Hercules",
         "Cutey",
         "Scrappy",
+        "Snout",
     ],
 
     dogLasts: [
@@ -351,6 +352,7 @@ export const names = {
         "the Destroyer",
         "Scrapps",
         "Tricks",
+        "Garbagepicker",
     ]
 
 }

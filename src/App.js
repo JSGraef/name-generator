@@ -8,36 +8,12 @@ class App extends Component {
     this.state = { name: this.createNewName(), rejected: [] }
   }
 
-  getFirstName = (seed) => {
-    return names.firsts[Math.floor((Math.random() * seed) % names.firsts.length)]
+  getFirstName = (seed, which) => {
+    return names[which][Math.floor((Math.random() * seed) % names[which].length)]
   }
 
-  getLastName = (seed) => {
-    return names.lasts[Math.floor((Math.random() * seed) % names.lasts.length)]
-  }
-
-  getFirstNameCat = (seed) => {
-    return names.catFirsts[
-      Math.floor((Math.random() * seed) % names.catFirsts.length)
-    ]
-  }
-
-  getLastNameCat = (seed) => {
-    return names.catLasts[
-      Math.floor((Math.random() * seed) % names.catLasts.length)
-    ]
-  }
-
-  getFirstNameCat = (seed) => {
-    return names.dogFirsts[
-      Math.floor((Math.random() * seed) % names.dogFirsts.length)
-    ]
-  }
-
-  getLastNameCat = (seed) => {
-    return names.dogLasts[
-      Math.floor((Math.random() * seed) % names.dogLasts.length)
-    ]
+  getLastName = (seed, which) => {
+    return names[which][Math.floor((Math.random() * seed) % names[which].length)]
   }
 
   getSuffix = (seed) => {
@@ -49,32 +25,40 @@ class App extends Component {
 
   createNewName = (which) => {
     var time = new Date().getTime()
+    let firsts = "firsts"
+    let lasts = "lasts"
+
     switch (which) {
-      case "cat": return {
-        first: this.getFirstNameCat(time),
-        last: this.getLastNameCat(time),
-        suffix: this.getSuffix(time)
-      }
-      case "dog": return {
-        first: this.getFirstNameCat(time),
-        last: this.getLastNameCat(time),
-        suffix: this.getSuffix(time)
-      }
+      case "cat":
+        firsts = "catFirsts"
+        lasts = "catLasts"
+        break;
+
+      case "dog":
+        firsts = "dogFirsts"
+        lasts = "dogLasts"
+        break;
+
       case "human":
-      default: return {
-        first: this.getFirstName(time),
-        last: this.getLastName(time),
-        suffix: this.getSuffix(time)
-      }
+      default:
+        firsts = "firsts"
+        lasts = "lasts"
+        break;
+    }
+
+    return {
+      first: this.getFirstName(time, firsts),
+      last: this.getLastName(time, lasts),
+      suffix: this.getSuffix(time)
     }
 
   }
 
-  newName = (cat = false) => {
+  newName = (which) => {
     let { rejected } = this.state
     rejected.unshift(this.state.name)
     rejected = rejected.slice(0, 10)
-    this.setState({ name: this.createNewName(cat), rejected })
+    this.setState({ name: this.createNewName(which), rejected })
   }
 
   render() {
