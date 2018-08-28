@@ -313,6 +313,7 @@ export const names = {
         "DoGoode",
         "Gudboi",
         "Content",
+        "McFlea",
         "McBarks",
         "Barksalot",
         "the Tank",
