@@ -1,30 +1,51 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import './App.css';
 import { names } from './Names';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = { name: this.createNewName(), rejected: [] }
+interface IName {
+  first: string,
+  last: string,
+  suffix: string,
+}
+
+interface IState {
+  name: IName,
+  rejected: IName[],
+}
+
+class App extends React.Component<{}, IState> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      name: this.createNewName("human"),
+      rejected: []
+    }
   }
 
-  getFirstName = (seed, which) => {
+  getFirstName = (seed: number, which: string) => {
     return names[which][Math.floor((Math.random() * seed) % names[which].length)]
   }
 
-  getLastName = (seed, which) => {
+  getLastName = (seed: number, which: string) => {
     return names[which][Math.floor((Math.random() * seed) % names[which].length)]
   }
 
-  getSuffix = (seed) => {
+  getSuffix = (seed: number) => {
     if (Math.floor((Math.random() * seed) % 12) === 0) {
       return names.suffixes[Math.floor((Math.random() * seed) % names.suffixes.length)]
     }
-    return null
+    return ""
   }
 
-  createNewName = (which) => {
-    var time = new Date().getTime()
+  newName = (which: string) => {
+    let { rejected } = this.state
+    rejected.unshift(this.state.name)
+    rejected = rejected.slice(0, 10)
+    this.setState({ name: this.createNewName(which), rejected })
+  }
+
+  createNewName = (which: string) => {
+    const time = new Date().getTime()
     let firsts = "firsts"
     let lasts = "lasts"
 
@@ -46,19 +67,17 @@ class App extends Component {
         break;
     }
 
-    return {
+    const name: IName = {
       first: this.getFirstName(time, firsts),
       last: this.getLastName(time, lasts),
       suffix: this.getSuffix(time)
     }
 
+    return name
   }
 
-  newName = (which) => {
-    let { rejected } = this.state
-    rejected.unshift(this.state.name)
-    rejected = rejected.slice(0, 10)
-    this.setState({ name: this.createNewName(which), rejected })
+  componentDidMount() {
+    this.setState({ name: this.createNewName("human") })
   }
 
   render() {
