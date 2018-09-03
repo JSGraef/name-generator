@@ -76,10 +76,6 @@ class App extends React.Component<{}, IState> {
     return name
   }
 
-  componentDidMount() {
-    this.setState({ name: this.createNewName("human") })
-  }
-
   render() {
     const { name } = this.state
     return (
